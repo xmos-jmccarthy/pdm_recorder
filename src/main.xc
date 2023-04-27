@@ -5,17 +5,14 @@
 #include <xscope.h>
 
 extern "C" {
-void cmain_xscope(chanend c_xscope_host, chanend c_sync);
-void cmain_pdm(chanend c_sync);
+void cmain_xscope_pdm(chanend c_xscope_host);
 }
 
 int main(void) {
     chan c_xscope_host;
-    chan c_sync;
     par {
         xscope_host_data(c_xscope_host);
-        on tile[1] : cmain_xscope(c_xscope_host, c_sync);
-        on tile[1] : cmain_pdm(c_sync);
+        on tile[1] : cmain_xscope_pdm(c_xscope_host);
     }
     return 0;
 }
